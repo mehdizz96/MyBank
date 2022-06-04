@@ -60,7 +60,31 @@
             <div class="panel panel-primary" th:if="${compte}">
                 <div class="panel-heading">Operations sur le compte</div>
                 <div class="panel-body">
-
+                    <form th:action="@{/saveOperation}" th:method="post">
+                        <div>
+                            <label>Compte :</label>
+                            <input type="hidden" name="codeCompte" th:value="${codeCompte}" />
+                            <label th:text="${codeCompte}"></label>
+                            <div>
+                                <input type="radio" name="typeOperation" value="VERS" checked="checked" onchange="document.getElementById('forVirement').style.display='none'" />
+                                <label>Versement</label>
+                                <input type="radio" name="typeOperation" value="RET" onchange="document.getElementById('forVirement').style.display='none'" />
+                                <label>Retrait</label>
+                                <input type="radio" name="typeOperation" value="VIR" onchange="document.getElementById('forVirement').style.display='block'" />
+                                <label>Virement</label>
+                            </div>
+                            <div id="forVirement" style="display: none">
+                                <label>Vers :</label>
+                                <input type="text" name="codeCompte2" />
+                            </div>
+                            <div>
+                                <label>Montant :</label>
+                                <input type="text" name="montant" />
+                            </div>
+                            <div class="text-danger" th:text="${#httpServletRequest.getParameter('error')}"></div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="panel panel-primary" th:if="${compte}">
